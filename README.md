@@ -2,63 +2,51 @@
 
 ## Overview
 
-This repository demonstrates several important Git operations including:
+This repository demonstrates basic Git operations including:
 
-* Creating multiple commits
-* Deleting commits using reset
-* Creating new commits
+* Creating commits
+* Deleting commits
 * Amending commits
-* Reverting commits
+* Reverting changes
 
-All operations were performed using a simple file called `file.txt`.
+All operations were performed using a simple text file.
 
 ---
 
-# 1. Creating 4 Commits
+## Steps Performed
 
-First, a file was created and modified several times.
-Each modification was committed separately.
+### 1. Create 4 Commits
 
-### Commands
+Four commits were created by modifying `newfile.txt` and committing the changes.
+
+#### Commands
 
 ```bash
-echo "line 1" >> file.txt
-git add file.txt
-git commit -m "commit 1"
+echo "MY NAME IS MARTEN WAFIK ROSHDY" >> newfile.txt
+git add newfile.txt
+git commit -m "adding my full name"
 
-echo "line 2" >> file.txt
-git add file.txt
-git commit -m "commit 2"
+echo "MY AGE IS 24" >> newfile.txt
+git commit -am "adding my age (commit 2)"
 
-echo "line 3" >> file.txt
-git add file.txt
-git commit -m "commit 3"
+echo "MY TRACK IS SYSTEM ADMIN" >> newfile.txt
+git commit -am "adding my track (commit 3)"
 
-echo "line 4" >> file.txt
-git add file.txt
-git commit -m "commit 4"
+echo "MY COURSE IS GIT" >> newfile.txt
+git commit -am "adding my course (commit 4)"
 ```
 
-### Check commits
+#### Check commits
 
 ```bash
 git log --oneline
 ```
 
-Expected output example:
-
-```
-commit4
-commit3
-commit2
-commit1
-```
-
 ---
 
-# 2. Deleting the Last Two Commits
+### 2. Delete the Last Two Commits
 
-To remove the last two commits from the repository history, the following command was used:
+The last two commits were removed using:
 
 ```bash
 git reset --hard HEAD~2
@@ -66,143 +54,73 @@ git reset --hard HEAD~2
 
 Explanation:
 
-* `HEAD` = the latest commit
-* `HEAD~2` = go back two commits
-* `--hard` = remove commits and reset the working directory
+* `HEAD` refers to the latest commit.
+* `HEAD~2` means going back two commits.
+* `--hard` removes the commits and resets the working directory.
 
-After this command the history becomes:
+---
 
-```
-commit2
-commit1
+### 3. Add a New Commit
+
+A new change was added after deletion with the commit message **"commit after deletion"**.
+
+```bash
+echo "COMMIT AFTER DELETION" >> newfile.txt
+git commit -am "commit after deletion"
 ```
 
 ---
 
-# 3. Creating a New Commit After Deletion
+### 4. Amend the Last Commit
 
-A new change was added to the file after deleting the previous commits.
-
-### Commands
+The text **"lab Done"** was added to the file and the last commit was amended.
 
 ```bash
-echo "new change after deletion" >> file.txt
-git add file.txt
-git commit -m "commit after deletion"
-```
-
-Now the commit history looks like:
-
-```
-commit after deletion
-commit2
-commit1
-```
-
----
-
-# 4. Amending the Last Commit
-
-The text **"lab Done"** was added to the file, then the last commit was amended.
-
-### Commands
-
-```bash
-echo "lab Done" >> file.txt
-git add file.txt
+echo "lab Done" >> newfile.txt
+git add newfile.txt
 git commit --amend
 ```
 
-This command modifies the **most recent commit**.
-
 ---
 
-# 5. Changing the Commit Message
+### 5. Change the Commit Message
 
-The last commit message was updated to **finish**.
+The amended commit message was updated to **finish**.
 
 ```bash
 git commit --amend -m "finish"
 ```
 
-Now the final commit message becomes:
-
-```
-finish
-```
-
 ---
 
-# What is Git Revert?
+## Revert Concept
 
-`git revert` is used to undo a commit **without deleting the commit history**.
+`git revert` is used to undo a commit by creating a **new commit** that reverses the changes made by a previous commit.
 
-Instead of removing commits, Git creates a **new commit that reverses the changes** made by a previous commit.
+Unlike `git reset`, it **does not remove commit history**.
 
-### Example
+Example:
 
 ```bash
 git revert HEAD
 ```
 
-This command creates a new commit that undoes the last commit.
-
-Benefits of revert:
-
-* Keeps full commit history
-* Safe for shared repositories
-* Recommended when working with teams
+This command creates a new commit that cancels the changes from the latest commit.
 
 ---
 
-# Bonus Task – Revert 3 Commits Back
+## Bonus Task
 
-To undo the last three commits, the following command can be used:
+Revert three commits back using:
 
 ```bash
 git revert HEAD~2..HEAD
 ```
 
-Explanation:
-
-* `HEAD` → latest commit
-* `HEAD~2` → third commit before the latest
-* Git creates new commits that reverse the changes.
-
-Alternative method:
-
-```bash
-git revert HEAD
-git revert HEAD~1
-git revert HEAD~2
-```
-
-Each command creates a new commit that cancels the previous changes.
+This command creates new commits that reverse the changes made in the last three commits.
 
 ---
 
-# Useful Git Commands
-
-Check commit history:
-
-```bash
-git log --oneline
-```
-
-Push changes to GitHub:
-
-```bash
-git push origin main
-```
-
-Force push (after reset or amend):
-
-```bash
-git push --force
-```
-
----
-
-# Author
+## Author
 
 Marten Wafik
